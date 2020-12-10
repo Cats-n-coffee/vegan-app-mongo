@@ -21,33 +21,40 @@ function getUserLocation() {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             const latLon = lat + ',' + lon;
-            console.log(latLon);
-            getUserZipCode(latLon);
+            console.log(lat,lon);
+            //getUserZipCode(latLon);
+            const strlat = lat.toString();
+            const strlng = lon.toString();
+            console.log(typeof strlng)
+            fetchApi('/api/places?lat=' + strlat + '&lng=' + strlng)
         });
     }
 }
 
-// convert user's coordinates to a zipcode
-function getUserZipCode(latLon) {
-    // reverse geocode API
-    fetch('http://www.mapquestapi.com/geocoding/v1/reverse?key=AxTAT4irkRbwuBj9vGdoAGdRDCVF6D0z&location='+ latLon + '&includeRoadMetadata=true&includeNearestIntersection=true')
-    .then(response => response.json())
-    .then(data => retrieveZipCode(data))
-}
 
-// access the zipcode in the json response and query database with it
-function retrieveZipCode(data) {
-    var userZipcode = data.results[0].locations[0].postalCode;
-    userZipcode = userZipcode.substring(0, userZipcode.length-5);
-    //userZipcode = parseInt(userZipcode);
-    console.log(userZipcode);
-    fetchApi('/api/places?zipcode=' + userZipcode);
-}
+
+// // convert user's coordinates to a zipcode
+// function getUserZipCode(latLon) {
+//     // reverse geocode API
+//     fetch('http://www.mapquestapi.com/geocoding/v1/reverse?key=AxTAT4irkRbwuBj9vGdoAGdRDCVF6D0z&location='+ latLon + '&includeRoadMetadata=true&includeNearestIntersection=true')
+//     .then(response => response.json())
+//     .then(data => retrieveZipCode(data))
+// }
+
+// // access the zipcode in the json response and query database with it
+// function retrieveZipCode(data) {
+//     var userZipcode = data.results[0].locations[0].postalCode;
+//     userZipcode = userZipcode.substring(0, userZipcode.length-5);
+//     //userZipcode = parseInt(userZipcode);
+//     console.log(userZipcode);
+//     fetchApi('/api/places?zipcode=' + userZipcode);
+// }
 
 // queries the database, then uses response data to invoke two other functions
-function fetchApi(url) {
+async function fetchApi(url) {
+    console.log(url)
     clearDisplay();
-    fetch(url)
+    await fetch(url)
         .then(response => response.json())
         .then(data => {
             console.log(data)
