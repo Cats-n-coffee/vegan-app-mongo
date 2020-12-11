@@ -29,26 +29,7 @@ function getUserLocation() {
             fetchApi('/api/places?lat=' + strlat + '&lng=' + strlng)
         });
     }
-}
-
-
-
-// // convert user's coordinates to a zipcode
-// function getUserZipCode(latLon) {
-//     // reverse geocode API
-//     fetch('http://www.mapquestapi.com/geocoding/v1/reverse?key=AxTAT4irkRbwuBj9vGdoAGdRDCVF6D0z&location='+ latLon + '&includeRoadMetadata=true&includeNearestIntersection=true')
-//     .then(response => response.json())
-//     .then(data => retrieveZipCode(data))
-// }
-
-// // access the zipcode in the json response and query database with it
-// function retrieveZipCode(data) {
-//     var userZipcode = data.results[0].locations[0].postalCode;
-//     userZipcode = userZipcode.substring(0, userZipcode.length-5);
-//     //userZipcode = parseInt(userZipcode);
-//     console.log(userZipcode);
-//     fetchApi('/api/places?zipcode=' + userZipcode);
-// }
+} 
 
 // queries the database, then uses response data to invoke two other functions
 async function fetchApi(url) {
@@ -87,7 +68,7 @@ function getLocationsCoordinates(data) {
 // GET request to place each location on a map
 function placeLocationsOnMap(allCoordinates) {
     const newRequest = new XMLHttpRequest;
-    newRequest.open('GET', 'https://www.mapquestapi.com/staticmap/v5/map?locations=' + allCoordinates+ '&zoom=10&size=600,400@2x&key=AxTAT4irkRbwuBj9vGdoAGdRDCVF6D0z&declutter=true', true);
+    newRequest.open('GET', 'https://www.mapquestapi.com/staticmap/v5/map?locations=' + allCoordinates+ '&zoom=12&size=600,400@2x&key=AxTAT4irkRbwuBj9vGdoAGdRDCVF6D0z&declutter=true', true);
     newRequest.responseType = 'blob';
     newRequest.onload = function(e){
         if(this.status === 200) {

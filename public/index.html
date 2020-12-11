@@ -5,19 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script defer src="frontend.js"></script>
+    <script src="https://kit.fontawesome.com/a517bc91f8.js" crossorigin="anonymous"></script>
     <title>Vegan APP </title>
 </head>
 <body>
-    <h1>html version</h1>
-    <form id="form-city">
-        <label>City:</label>
-        <input id="user-input" type="text" ref="city" placeholder="City" required>
-        <input type="submit" value="Find Places">
-    </form>
-    <button id="geolocation-btn" type="button">Find places around me!</button>
-    <div id="map">
-        <img src="" id="map-container">
+    <div id="main-container">
+        <header>
+            <h1>What's Nearby?</h1>
+            <div id="search-form">
+                <form id="form-city">
+                    <label>Enter a City:</label>
+                    <input id="user-input" type="text" ref="city" placeholder="City ..." required>
+                    <input id="input-button" type="submit" value="Find Places">
+                </form>
+                <div id="geo-div">
+                    <span>Or ...</span>
+                    <input id="geolocation-btn" type="button" value="Find Places Near Me!">
+                </div>
+            </div>
+        </header>
+        <div class="main-content">
+            <div id="my-data"></div>
+            <div id="map">
+                <img src="" id="map-container">
+            </div>
+        </div>
+        
+        <footer>
+            <a href="#"><span>See this project on <i class="fab fa-github"></i></span></a>
+        </footer>
     </div>
-    <div id="my-data"></div>
+    
 </body>
 </html>

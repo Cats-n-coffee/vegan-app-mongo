@@ -16,15 +16,7 @@ router.get('/places', (req, res, next) => {
         })
         .catch(err => console.log(err))
     }
-    // else if (req.query.zipcode) {
-    //     collection.find({ "location.zip_code": req.query.zipcode })
-    //     .toArray()
-    //     .then(result => {
-    //         console.log(result.length)
-    //         res.send(result)
-    //     })
-    //     .catch(err => console.log(err))
-    // }
+    
     else {
         collection.find({
             "loc": {
@@ -32,10 +24,7 @@ router.get('/places', (req, res, next) => {
                     "$geometry": {
                         type: "Point", coordinates: [ parseFloat(req.query.lng), parseFloat(req.query.lat) ],
                     },
-                    "$maxDistance": 100000,
-                    //"distanceField": "dist",
-                    //"spherical": true,
-                    //"query": { "geometry.type": "Point" }
+                    "$maxDistance": 10000,
                 },
             }
         },
@@ -45,6 +34,7 @@ router.get('/places', (req, res, next) => {
             }
         }
     )
+        .limit(20)
         .toArray()
         .then(result => res.send(result))
         .catch(err => console.log(err))
@@ -52,8 +42,3 @@ router.get('/places', (req, res, next) => {
 })
 
 module.exports = router;
-
-// index in mongodb?
-// MongoError: unknown top level operator: $near
-// use .find() or use .near() or aggregate
-// need the type: "point" in mongo? ---->> need to add to the coordinates field
