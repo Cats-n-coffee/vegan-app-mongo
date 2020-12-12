@@ -30,6 +30,24 @@ function findPlacesByCity(e) {
     
     clearDisplay();
     var city = userInput.value;
+    if (city.match(/^[A-Za-z]+$/)){
+        city = city.toLowerCase();
+        city = city.split(' ');
+        for (let i=0; i < city.length; i++) {
+        city[i] = city[i].charAt(0).toUpperCase() + city[i].substring(1);
+        }
+        city = city.join(' ');
+        
+    }
+    else {
+        const errorDiv = document.createElement('span');
+        errorDiv.innerText = 'Sorry we couldn\'t find any match to your request';
+        myData.appendChild(errorDiv);
+        userInput.value = '';
+        return
+    }
+    
+    console.log(city);
     fetchApi('/api/places?city=' + city)
 }
 
