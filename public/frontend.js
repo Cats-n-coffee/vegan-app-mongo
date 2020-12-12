@@ -2,12 +2,32 @@ const myData = document.getElementById('my-data');
 const submitForm = document.getElementById('form-city');
 const userInput = document.getElementById('user-input');
 const geolocationBtn = document.getElementById('geolocation-btn');
+const inputBtn = document.getElementById('input-button');
 const mapContainer = document.getElementById('map-container');
+const mainContent = document.getElementsByClassName('main-content')[0];
+const mainContainer = document.getElementById('main-container');
+const headerBar = document.getElementsByTagName('header')[0];
+const footerBar = document.getElementsByTagName('footer')[0];
+
+document.addEventListener('DOMContentLoaded', () => {
+    mainContainer.classList.add('home-page-right');
+    headerBar.classList.add('home-page-form');
+    footerBar.classList.add('home-page-footer');
+    // inputBtn.addEventListener('click', () => {
+    //     headerBar.style.transform = 'translateY(-25%)';
+    // })
+})
+
 
 // get user input(city) and query database
 submitForm.addEventListener('submit', findPlacesByCity)
 function findPlacesByCity(e) {
     e.preventDefault();
+    
+    mainContainer.classList.remove('home-page-right');
+    headerBar.classList.remove('home-page-form');
+    footerBar.classList.remove('home-page-footer');
+    
     clearDisplay();
     var city = userInput.value;
     fetchApi('/api/places?city=' + city)
@@ -16,6 +36,7 @@ function findPlacesByCity(e) {
 // get user location(coordinates)
 geolocationBtn.addEventListener('click', getUserLocation)
 function getUserLocation() {
+    clearDisplay();
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
             const lat = position.coords.latitude;
@@ -29,6 +50,9 @@ function getUserLocation() {
             fetchApi('/api/places?lat=' + strlat + '&lng=' + strlng)
         });
     }
+    mainContainer.classList.remove('home-page-right');
+    headerBar.classList.remove('home-page-form');
+    footerBar.classList.remove('home-page-footer');
 } 
 
 // queries the database, then uses response data to invoke two other functions
