@@ -10,31 +10,38 @@
 </head>
 <body>
     <div id="main-container">
+        <div id="mobile-toggle">
+            <span>Search</span>
+            <div id="arrow">
+                <span class="arrow-bar"></span>
+                <span class="arrow-bar"></span>
+            </div>
+        </div>
         <header>
             <h1>What's Nearby?</h1>
             <div id="search-form">
                 <form id="form-city">
                     <label>Enter a City:</label>
                     <input id="user-input" type="text" ref="city" placeholder="City ..." required>
-                    <input id="input-button" type="submit" value="Find Places">
+                    <input class="blue-button" id="input-button" type="submit" value="Find Places">
                 </form>
                 <div id="geo-div">
                     <span>Or ...</span>
-                    <input id="geolocation-btn" type="button" value="Find Places Near Me!">
+                    <input class="blue-button" id="geolocation-btn" type="button" value="Find Places Near Me!">
                 </div>
             </div>
         </header>
-        <div class="main-content">
+        <main class="main-content">
             <div id="my-data">
             </div>
             <div id="map">
                 <img src="" id="map-container">
             </div>
-        </div>
+        </main>
         
         <footer>
             <a href="https://github.com/Chichi-coder/vegan-app-mongo" target="_blank"><span>See this project on <i class="fab fa-github"></i></span></a>
-            <a href="https://www.vecteezy.com/free-vector/food-pattern">Food Pattern Vectors by Vecteezy</a>
+            <a href="https://www.vecteezy.com/free-vector/food-pattern"> | Food Pattern Vectors by Vecteezy</a>
         </footer>
     </div>
     

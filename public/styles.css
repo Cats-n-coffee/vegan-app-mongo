@@ -1,5 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
+/* --------------- Table of content -----------
+1. General styles
+2. Container
+3. Header/ Search form / Mobile toggle
+4. Main and its content
+5. Footer
+6. Added home page with JS
+7. Media query
+
+
+/* --------------- Custom properties ------------- */
+:root {
+    --font-stack: 'Nunito', sans-serif;
+    --blue-button: rgb(28, 28, 219);
+    --blue-button-hover: rgb(97, 97, 236);
+    --grey-input: rgb(188, 188, 189);
+    --grey-input-focus: rgb(219, 218, 218);
+    --blue-title: rgb(26, 26, 224);
+}
+
+/* ----------------------------------- 1. GENERAL STYLES --------------------------------- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -9,43 +30,8 @@
 html,body {
     width: 100%;
     height: 100%;
-    font-family: 'Nunito', sans-serif;
+    font-family: var(--font-stack);
     font-size: 10px;
-}
-
-#main-container {
-    min-height: 100vh;
-    overflow: hidden;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    position: relative;
-    padding-bottom: 10px;
-}
-
-header {
-    display: flex;
-    width: 100%;
-    padding: 2em 2em;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0px 2.5px 5px rgba(0,0,0,0.15);
-    /*transform: translateY(-25);*/
-    transition: transform 2s;
-}
-
-header h1 {
-    font-size: 3em;
-    letter-spacing: .1em;
-    width: 20%;
-
-}
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 1.4em;
-    padding: .5em 0;
 }
 
 a {
@@ -53,19 +39,87 @@ a {
     color: black;
 }
 
-#search-form {
+/* ------------------------------------- 2. CONTAINER ------------------------------------ */
+#main-container {
+    min-height: 100vh;
+    overflow: hidden;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-rows: auto 1fr auto;
+        grid-template-rows: auto 1fr auto;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+/* ----------------------------------- 3. HEADER/ SEARCH FORM -------------------------------- */
+header {
+    position: absolute;
+    top: 10%;
+    left: 0;
+    right: 0;
+    display: none;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+            -ms-grid-row-align: center;
+            align-items: center;
+    width: 100%;
+    padding: 2em 2em;
+    background: white;
+    box-shadow: 0px 2.5px 5px rgba(0,0,0,0.15);
+}
+
+header h1 {
+    font-size: 3em;
+    letter-spacing: .1em;
+    text-align: center;
+}
+
+header.show {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-evenly;
-    gap: 3em;
+}
+
+/* ------------------ SEARCH FORM ----------------- */
+#search-form {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+            align-items: center;
     width: 80%;
 }
 
 #search-form form {
     font-size: 1.5em;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 2em;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+            align-items: center;
 }
 
 #search-form form label {
@@ -75,21 +129,22 @@ a {
 
 #user-input {
     padding: .5em 1em;
-    font-family: 'Nunito', sans-serif;
+    font-family: var(--font-stack);
     font-size: 1em;
-    background: rgb(188, 188, 189);
+    background: var(--grey-input);
     border-radius: 20px;
     border: none;
+    margin: 2em 0;
 }
 
 #user-input:focus {
-    background: rgb(219, 218, 218);
+    background: var(--grey-input-focus);
 }
 
-#input-button {
+.blue-button {
     padding: .7em 1.5em;
-    font-family: 'Nunito', sans-serif;
-    background: rgb(28, 28, 219);
+    font-family: var(--font-stack);
+    background: var(--blue-button);
     color: white;
     border-radius: 20px;
     border: none;
@@ -98,59 +153,100 @@ a {
     font-weight: bold;
 }
 
-#input-button:hover {
-    padding: .7em 1.5em;
-    font-family: 'Nunito', sans-serif;
-    background: rgb(97, 97, 236);
-    color: white;
-    border-radius: 20px;
-    border: none;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    font-weight: bold;
+.blue-button:hover, .blue-button:focus {
+    background: var(--blue-button-hover);
 }
 
 #geo-div {
+    margin: 3em 0 0 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 2em;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+            align-items: center;
 }
 
 #geo-div span{
     font-size: 2em;
     letter-spacing: .1em;
+    margin: 0 0 1.5em 0;
 }
 
-#geolocation-btn {
-    padding: .7em 1.5em;
-    font-family: 'Nunito', sans-serif;
-    background: rgb(28, 28, 219);
-    color: white;
-    border-radius: 20px;
-    border: none;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    font-weight: bold;
+/* ------------------- MOBILE TOGGLE ----------------- */
+#mobile-toggle {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+            align-items: center;
+    width: 100%;
+    padding: 2em 0;
 }
 
-#geolocation-btn:hover {
-    padding: .7em 1.5em;
-    font-family: 'Nunito', sans-serif;
-    background: rgb(97, 97, 236);
-    color: white;
-    border-radius: 20px;
-    border: none;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    font-weight: bold;
+#mobile-toggle > span {
+    color: var(--blue-title);
+    font-size: 2em;
+    margin: 0 1em 0 0;
 }
 
+#arrow {
+    width: 30px;
+    height: 30px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    -webkit-transform-origin: 25%;
+            transform-origin: 25%;
+}
+
+#mobile-toggle.rotate #arrow{
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.arrow-bar {
+    position: absolute;
+    top: 25%;
+    width: 3px;
+    height: 15px;
+    background: var(--blue-title);
+}
+
+.arrow-bar:first-child {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    left: 0;
+}
+
+.arrow-bar:last-child {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    left: 30%;
+}
+
+/* ---------------------------------- 4. MAIN AND ITS CONTENT ---------------------------- */ 
 .main-content {
     height: 100%;
     width: 100%;
+    display: -ms-grid;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    -ms-grid-columns: minmax(0, 1fr);
+        grid-template-columns: minmax(0, 1fr);
+    -ms-grid-rows: 40vh 48vh;
+        grid-template-rows: 40vh 48vh;
 }
 
 #my-data {
@@ -163,8 +259,13 @@ a {
 }
 
 #my-data div {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 #my-data span {
@@ -175,11 +276,9 @@ a {
 
 #my-data span:first-child {
     font-weight: bold;
-    color: rgb(26, 26, 224);
+    color: var(--blue-title);
     font-size: 1.6em;
 }
-
-
 
 #map {
     height: 81vh;
@@ -187,7 +286,18 @@ a {
     overflow-y: auto;
     overflow-x: auto;
 }
-/* ------------------------------------ Added classes in JS ----------------------------------- */
+
+/* ------------------------------------ 5. FOOTER -------------------------------------- */
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 1.4em;
+    padding: .5em 0;
+}
+
+/* ------------------------------------ 6. Added home page in JS ----------------------------------- */
 .home-page-right {
     width: 100%;
     height: 100%;
@@ -197,10 +307,15 @@ a {
 
 .home-page-form {
     position: absolute;
-    top: 35%;
+    top: 20%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    background: white;
-    
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+            flex-direction: column;
+    background: white; 
 }
 
 .home-page-footer {
@@ -211,4 +326,75 @@ a {
 
 .hide {
     display: none;
+}
+
+#mobile-toggle.hide {
+    display: none;
+}
+
+/* ----------------------------------- 7. MEDIA QUERY ----------------------------------- */
+
+@media screen and (min-width: 1100px) {
+    /* --------------------- HEADER/ SEARCH FORM ------------------------ */
+    #mobile-toggle {
+        display: none;
+    }
+
+    header {
+        position: static;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+                flex-direction: row;
+    }
+
+    #search-form {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    }
+
+    #search-form form {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    }
+
+    #user-input {
+        margin: 0 2em;
+    }
+
+    #geo-div {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+        margin: 0 0 0 3em;
+    }
+
+    #geo-div span {
+        margin: 0 2em 0 0;
+    }
+
+    /* --------------------- MAIN CONTENT ------------------------ */
+    .main-content {
+        -ms-grid-columns: 1fr 2fr;
+        grid-template-columns: 1fr 2fr;
+        -ms-grid-rows: minmax(0, 1fr);
+            grid-template-rows: minmax(0, 1fr);
+    }
+
+    /* ----------------------- JS HOME PAGE --------------------- */
+    .home-page-form {
+        top: 35%;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    }
 }

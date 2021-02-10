@@ -9,12 +9,14 @@ const mainContent = document.getElementsByClassName('main-content')[0];
 const mainContainer = document.getElementById('main-container');
 const headerBar = document.getElementsByTagName('header')[0];
 const footerBar = document.getElementsByTagName('footer')[0];
+const mobileMenu = document.getElementById('mobile-toggle');
 
 // On page load display the 'home' page
 document.addEventListener('DOMContentLoaded', () => {
     mainContainer.classList.add('home-page-right');
     headerBar.classList.add('home-page-form');
     footerBar.classList.add('home-page-footer');
+    mobileMenu.classList.add('hide');
 })
 
 
@@ -28,6 +30,7 @@ function findPlacesByCity(e) {
     mainContainer.classList.remove('home-page-right');
     headerBar.classList.remove('home-page-form');
     footerBar.classList.remove('home-page-footer');
+    mobileMenu.classList.remove('hide');
     
     clearDisplay();
 
@@ -78,6 +81,7 @@ function getUserLocation() {
     mainContainer.classList.remove('home-page-right');
     headerBar.classList.remove('home-page-form');
     footerBar.classList.remove('home-page-footer');
+    mobileMenu.classList.remove('hide');
 } 
 
 // Queries the database, then uses response data to invoke two other functions
@@ -117,7 +121,7 @@ function getLocationsCoordinates(data) {
 // GET request to place each location on a map
 function placeLocationsOnMap(allCoordinates) {
     const newRequest = new XMLHttpRequest;
-    newRequest.open('GET', 'https://www.mapquestapi.com/staticmap/v5/map?locations=' + allCoordinates+ '&zoom=12&size=600,400@2x&key=AxTAT4irkRbwuBj9vGdoAGdRDCVF6D0z&declutter=true', true);
+    newRequest.open('GET', 'https://www.mapquestapi.com/staticmap/v5/map?locations=' + allCoordinates + '&zoom=12&size=600,400@2x&key=AxTAT4irkRbwuBj9vGdoAGdRDCVF6D0z&declutter=true', true);
     newRequest.responseType = 'blob';
     newRequest.onload = function(e){
         if(this.status === 200) {
@@ -162,3 +166,12 @@ function clearDisplay() {
     }
 }
 
+// Toggle mobile menu
+const mobileToggle = document.getElementById('mobile-toggle');
+
+mobileToggle.addEventListener('click', toggleMobileMenu)
+
+function toggleMobileMenu() {
+    mobileToggle.classList.toggle('rotate');
+    headerBar.classList.toggle('show');
+}
