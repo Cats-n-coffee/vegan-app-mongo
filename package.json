@@ -1,6 +1,9 @@
 {
   "name": "vegan-api-app",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.x"
+  },
   "private": true,
   "description": "vegan api +  front end geolocation",
   "main": "app.js",
