@@ -34,25 +34,32 @@ function findPlacesByCity(e) {
     
     clearDisplay();
 
-    // Formats user input
+    // Formats user input and checks for only letters
     var city = userInput.value;
-    console.log('input',city);
-    if (city.match(/^[A-Za-z]+$/)){
-        city = city.toLowerCase();
-        city = city.split(' ');
-        for (let i=0; i < city.length; i++) {
-        city[i] = city[i].charAt(0).toUpperCase() + city[i].substring(1);
-        }
-        city = city.join(' ');
-        
+    var regex = /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/;///^[a-zA-Z]+$/;
+    
+    if (!regex.test(city)){
+        // Displays error if city could not be found
+        displayErrorMessage();
     }
     else {
-        // Displays error if city could not be found
-        const errorDiv = document.createElement('span');
-        errorDiv.innerText = 'Sorry we couldn\'t find any match to your request';
-        myData.appendChild(errorDiv);
-        userInput.value = '';
-        return
+        // If city is in more than one word
+        if (city.includes(' ')) {
+            console.log(city);
+            city = city.toLowerCase();
+            city = city.split(' ');
+
+            for (let i=0; i < city.length; i++) {
+            city[i] = city[i].charAt(0).toUpperCase() + city[i].substring(1);
+            }
+            city = city.join(' ');
+        }
+        else {
+            // If city is in one word
+            city = city.toLowerCase();
+            city = city.charAt(0).toUpperCase() + city.substring(1);
+        }
+        
     }
     
     console.log(city);
@@ -139,6 +146,13 @@ function placeLocationsOnMap(allCoordinates) {
 // Displays each location's name on the screen
 function displayData(responseJson) {
     console.log(responseJson)
+
+    // If city name is not in the database, display the error message
+    if (responseJson.length === 0) {
+        displayErrorMessage();
+    }
+
+    // Displays the data
     userInput.value = '';
     for (let i = 0; i < responseJson.length; i++) {
         var name = responseJson[i].name;
@@ -164,6 +178,15 @@ function clearDisplay() {
     while (myData.firstChild) {
         myData.removeChild(myData.firstChild);
     }
+}
+
+// Displays error message to user
+function displayErrorMessage() {
+    const errorDiv = document.createElement('span');
+    errorDiv.innerText = 'Sorry we couldn\'t find any match to your request';
+    myData.appendChild(errorDiv);
+    userInput.value = '';
+    return
 }
 
 // Toggle mobile menu

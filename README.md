@@ -11,3 +11,5 @@ The front end fetches the back end using a GET request, and placing userinput as
 Attempt to do a 'single page' app with api queries on the front end. Back end renders static files only (no views).
 
 Second option uses the user's location to find matching places.
+
+Link to deployed version: https://floating-waters-62278.herokuapp.com/
