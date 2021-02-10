@@ -11,6 +11,7 @@ const app = express();
 const mongoUser = process.env.MONGO_USER;
 const mongoPassword = process.env.MONGO_PASSWORD;
 const mongoDbName = process.env.MONGO_DB_NAME;
+const PORT = process.env.PORT || 3000;
 
 const dbURi = `mongodb+srv://${mongoUser}:${mongoPassword}@cluster0.xwfkn.mongodb.net`;///${mongoDbName}?retryWrites=true&w=majority`;
 
@@ -24,7 +25,7 @@ const client = new MongoClient(dbURi, { useUnifiedTopology: true });
 
 async function connectToDb() {
     await client.connect().then(async(result) => {
-        app.listen(3000);
+        app.listen(PORT);
         const database = client.db(mongoDbName);
         const collection = database.collection('users');
         

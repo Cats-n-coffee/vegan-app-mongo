@@ -1,3 +1,4 @@
+// All DOM elements necessary
 const myData = document.getElementById('my-data');
 const submitForm = document.getElementById('form-city');
 const userInput = document.getElementById('user-input');
@@ -9,27 +10,30 @@ const mainContainer = document.getElementById('main-container');
 const headerBar = document.getElementsByTagName('header')[0];
 const footerBar = document.getElementsByTagName('footer')[0];
 
+// On page load display the 'home' page
 document.addEventListener('DOMContentLoaded', () => {
     mainContainer.classList.add('home-page-right');
     headerBar.classList.add('home-page-form');
     footerBar.classList.add('home-page-footer');
-    // inputBtn.addEventListener('click', () => {
-    //     headerBar.style.transform = 'translateY(-25%)';
-    // })
 })
 
 
-// get user input(city) and query database
+// Get user input(city) and query database
 submitForm.addEventListener('submit', findPlacesByCity)
+
 function findPlacesByCity(e) {
     e.preventDefault();
     
+    // Remove the 'home' page and show the map, results, and search bar at the top
     mainContainer.classList.remove('home-page-right');
     headerBar.classList.remove('home-page-form');
     footerBar.classList.remove('home-page-footer');
     
     clearDisplay();
+
+    // Formats user input
     var city = userInput.value;
+    console.log('input',city);
     if (city.match(/^[A-Za-z]+$/)){
         city = city.toLowerCase();
         city = city.split(' ');
@@ -40,6 +44,7 @@ function findPlacesByCity(e) {
         
     }
     else {
+        // Displays error if city could not be found
         const errorDiv = document.createElement('span');
         errorDiv.innerText = 'Sorry we couldn\'t find any match to your request';
         myData.appendChild(errorDiv);
@@ -51,8 +56,9 @@ function findPlacesByCity(e) {
     fetchApi('/api/places?city=' + city)
 }
 
-// get user location(coordinates)
-geolocationBtn.addEventListener('click', getUserLocation)
+// Get user location(coordinates)
+geolocationBtn.addEventListener('click', getUserLocation);
+
 function getUserLocation() {
     clearDisplay();
     if (navigator.geolocation) {
@@ -68,12 +74,13 @@ function getUserLocation() {
             fetchApi('/api/places?lat=' + strlat + '&lng=' + strlng)
         });
     }
+    // Removes the 'home' page from the screen
     mainContainer.classList.remove('home-page-right');
     headerBar.classList.remove('home-page-form');
     footerBar.classList.remove('home-page-footer');
 } 
 
-// queries the database, then uses response data to invoke two other functions
+// Queries the database, then uses response data to invoke two other functions
 async function fetchApi(url) {
     console.log(url)
     clearDisplay();
@@ -87,7 +94,7 @@ async function fetchApi(url) {
         .catch(err => console.log(err));
 }
 
-// uses each location's coordinates from json response, places them in an array, and prepares the format for api call
+// Uses each location's coordinates from json response, places them in an array, and prepares the format for api call
 function getLocationsCoordinates(data) {
     var arrayOfCoordinates = [];
     if (data.length === 0){
@@ -125,7 +132,7 @@ function placeLocationsOnMap(allCoordinates) {
     newRequest.send();
 }
 
-// displays each location's name on the screen
+// Displays each location's name on the screen
 function displayData(responseJson) {
     console.log(responseJson)
     userInput.value = '';
@@ -148,7 +155,7 @@ function displayData(responseJson) {
     }
 };
 
-// clears the display 
+// Clears the display 
 function clearDisplay() {
     while (myData.firstChild) {
         myData.removeChild(myData.firstChild);
