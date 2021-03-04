@@ -31,6 +31,10 @@ function findPlacesByCity(e) {
     headerBar.classList.remove('home-page-form');
     footerBar.classList.remove('home-page-footer');
     mobileMenu.classList.remove('hide');
+    const spinnerWrap = document.getElementsByClassName('spinner-wrapper')[0];
+    spinnerWrap.style.display = 'flex';
+
+    removeSpinnerWrap(spinnerWrap);
     
     clearDisplay();
 
@@ -197,4 +201,10 @@ mobileToggle.addEventListener('click', toggleMobileMenu)
 function toggleMobileMenu() {
     mobileToggle.classList.toggle('rotate');
     headerBar.classList.toggle('show');
+}
+
+function removeSpinnerWrap(wrap) {
+    setTimeout(() => {
+        wrap.style.display = 'none';
+    }, 5000);
 }
